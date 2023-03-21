@@ -1,6 +1,6 @@
 # Simple Mobile Navigation App
 
-Run a simple mobile expo mobile app.  Navigate between two simple pages.
+Run a simple mobile expo mobile app.  Navigate between two simple views.
 
 ## Running the app
 
