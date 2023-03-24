@@ -11,15 +11,10 @@ const CustomButton = ({ onPress, title, size, backgroundColor }) => (
       onPress={onPress}
       style={[
         styles.appButtonContainer,
-        size === "sm" && {
-          paddingHorizontal: 8,
-          paddingVertical: 6,
-          elevation: 6
-        },
         backgroundColor && { backgroundColor }
       ]}
     >
-      <Text style={[styles.appButtonText, size === "sm" && { fontSize: 14 },]}>
+      <Text style={[styles.appButtonText, size === "sm" && { fontSize: 18 },]}>
         {title}
       </Text>
     </TouchableOpacity>

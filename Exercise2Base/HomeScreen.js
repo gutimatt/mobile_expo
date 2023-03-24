@@ -13,9 +13,13 @@ const HomeScreen  = ({ navigation }) => {
   
     return (
       <View style={styles.container}>
-        <CustomButton style={styles.button} onPress={handleButtonPress} title="My First Button" size='sm' backgroundColor="#009688"/>
-        <CustomButton style={styles.button} onPress={handleButtonPress} title="My Second Button" size='sm' backgroundColor="#009688"/>
-        <CustomButton style={styles.button} onPress={handleButtonPress} title="My Third Button" size='sm' backgroundColor="#009688"/>
+        <CustomButton onPress={handleButtonPress} title="My First Button" size='sm' backgroundColor="#2C3333"/>
+        <CustomButton onPress={handleButtonPress} title="My Second Button" size='sm' backgroundColor="#2E4F4F"/>
+        <CustomButton onPress={handleButtonPress} title="My Third Button" size='sm' backgroundColor="#0E8388"/>
+        <CustomButton onPress={handleButtonPress} title="My Fourth Button" size='sm' backgroundColor="#CBE4DE"/>
+        <CustomButton onPress={handleButtonPress} title="My Fifth Button" size='sm' backgroundColor="#37306B"/>
+        <CustomButton onPress={handleButtonPress} title="My Sixth Button" size='sm' backgroundColor="#66347F"/>
+        <CustomButton onPress={handleButtonPress} title="My Seventh Button" size='sm' backgroundColor="#9E4784"/>
       </View>
     );
   }
@@ -25,9 +29,6 @@ const HomeScreen  = ({ navigation }) => {
       flex: 1,
       alignItems: 'center',
       justifyContent: 'center'
-    },
-    button: {
-      margin: 10
     }
   });
 
