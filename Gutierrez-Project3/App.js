@@ -27,7 +27,8 @@ export default class App extends Component {
         }
       })
       .then(results => {
-        const a = results.join('\n')
+        var a = "Students who received a " + query + " grade: \n"
+        a += results.join('\n')
         this.setState({ results: a })
       }).catch(error =>  {
         this.setState({ results: error.message});
@@ -46,10 +47,6 @@ export default class App extends Component {
             editable={false}
             multiline
           />
-          <TouchableOpacity onPress={() => this.onLoad('')} style=
-          {styles.btn}>
-            <Text>Load data</Text>
-          </TouchableOpacity>
           <TouchableOpacity onPress={() => this.onLoad('A')} style=
           {styles.btn}>
             <Text>A</Text>
