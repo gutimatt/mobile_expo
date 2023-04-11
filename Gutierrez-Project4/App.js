@@ -11,6 +11,9 @@ import {
   View,
 } from 'react-native';
 
+import StarPicker from './StarPicker';
+import MyAudio from './MyAudio';
+
 const key = '@MyApp:key';
 
 export default function App() {
@@ -22,9 +25,12 @@ export default function App() {
       storedValue: '',
     },
     picker3: {
+      title: 'Nervous Tic Motion of the Head to the Left',
       storedValue: '',
     },
   });  
+
+  const [pickerIndex, setPickerIndex] = useState(0);
 
   const onLoad = async () => {
     try {
@@ -59,47 +65,43 @@ export default function App() {
       }
     }));
   }
+  
+  const handleNextPicker = () => {
+    setPickerIndex(prevIndex => (prevIndex + 1) % 3); 
+  };
+
+  const handlePreviousPicker = () => {
+    setPickerIndex(prevIndex => (prevIndex - 1) % 3); 
+  };
 
   return (
-  
     <View style={styles.container}>
+      <MyAudio handleNextPicker={handleNextPicker} handlePreviousPicker={handlePreviousPicker}/> 
       <Text style={styles.preview}>{
-        pickerState.picker1.storedValue + "\n" +
-        pickerState.picker2.storedValue + "\n" +
-        pickerState.picker3.storedValue
+        "People Watching:  " + pickerState.picker1.storedValue + "\n" +
+        "Hunted By A Freak " +  pickerState.picker2.storedValue + "\n" +
+        "Nervous Tic Motion... " + pickerState.picker3.storedValue
       }</Text>
-      <View>
-        <Picker
-        style={styles.pickerContainer}
-          selectedValue={pickerState.picker1.storedValue}
-          onValueChange={(itemValue) => handleChange(itemValue, 'picker1')}>
-              <Picker.Item label="1 Star" value="1 Star" />
-              <Picker.Item label="2 Star" value="2 Star" />
-              <Picker.Item label="3 Star" value="3 Star" />
-              <Picker.Item label="4 Star" value="4 Star" />
-              <Picker.Item label="5 Star" value="5 Star" />
-        </Picker>
-        <Picker
-        style={styles.pickerContainer}
+      <View style={styles.row}>
+        {pickerIndex == 0 && (
+          <StarPicker 
+            selectedValue={pickerState.picker1.storedValue}
+            onValueChange={'picker1'}
+            handleChange ={handleChange}
+          />
+        )}
+        {pickerIndex == 1 && (<StarPicker 
           selectedValue={pickerState.picker2.storedValue}
-          onValueChange={(itemValue) => handleChange(itemValue, 'picker2')}>
-              <Picker.Item label="1 Star" value="1 Star" />
-              <Picker.Item label="2 Star" value="2 Star" />
-              <Picker.Item label="3 Star" value="3 Star" />
-              <Picker.Item label="4 Star" value="4 Star" />
-              <Picker.Item label="5 Star" value="5 Star" />
-        </Picker>
-        <Picker
-        style={styles.pickerContainer}
+          onValueChange={'picker2'}
+          handleChange ={handleChange}
+        />)}
+        {pickerIndex == 2 && (<StarPicker 
           selectedValue={pickerState.picker3.storedValue}
-          onValueChange={(itemValue) => handleChange(itemValue, 'picker3')}>
-              <Picker.Item label="1 Star" value="1 Star" />
-              <Picker.Item label="2 Star" value="2 Star" />
-              <Picker.Item label="3 Star" value="3 Star" />
-              <Picker.Item label="4 Star" value="4 Star" />
-              <Picker.Item label="5 Star" value="5 Star" />
-        </Picker>
-        <TouchableOpacity onPress={onSave} style=
+          onValueChange={'picker3'}
+          handleChange ={handleChange}
+        />)}
+      </View>
+      <TouchableOpacity onPress={onSave} style=
           {styles.button}>
           <Text>Save locally</Text>
         </TouchableOpacity>
@@ -107,7 +109,6 @@ export default function App() {
           {styles.button}>
           <Text>Load data</Text>
         </TouchableOpacity>
-      </View>
     </View>
   );
 }
@@ -118,9 +119,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#fff',
-  }, pickerContainer: {
-    width: 300,
-    height: 200
+  }, row: {
+    flexDirection: 'row',
   }, preview: {
     backgroundColor: '#bdc3c7',
     width: 300,
