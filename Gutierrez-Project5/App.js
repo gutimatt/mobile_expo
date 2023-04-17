@@ -29,7 +29,7 @@ export default class App extends Component {
         }
       },
       notify: false,
-      message: 'This is a notification!',
+      message: '',
     };
 
   async componentDidMount() {
@@ -50,6 +50,15 @@ export default class App extends Component {
     });
   }
 
+  changeLocation = (location, message) => {
+    this.setState({
+      ...this.state,
+      location: location,
+      message: "Changed to " + message,
+      notify: !this.state.notify,
+    });
+  }
+
   render() {
     const notify = this.state.notify
       ? <Notification
@@ -58,7 +67,7 @@ export default class App extends Component {
           onClose={this.toggleNotification}
         />
     : null;
-    
+
     return (
     <View style={styles.container}>
       {this.state.location ? (
@@ -92,34 +101,24 @@ export default class App extends Component {
         </MapView>
       ) : null}
       <View style={styles.rowContainer}>
-        <TouchableOpacity style={styles.button} onPress={() => this.getLocation()}>
+        <TouchableOpacity style={styles.button} onPress={() => {
+          this.getLocation()
+          this.changeLocation(this.state.location, 'YOU')      
+        }}>
             <Text>You</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={() => {
-          this.setState({
-            ...this.state,
-            location: this.state.poi1,
-          });
+          this.changeLocation(this.state.poi1, 'POI1')      
         }}>
             <Text>POI 1</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={() => {
-          this.setState({
-            ...this.state,
-            location: this.state.poi2,
-          });
+          this.changeLocation(this.state.poi2, 'POI2')      
         }}>
             <Text>POI 2</Text>
         </TouchableOpacity>
       </View>
-
-      <TouchableOpacity
-          onPress={this.toggleNotification}
-          style={styles.btn}
-        >
-          <Text style={styles.text}>Show notification</Text>
-        </TouchableOpacity>
-        {notify}
+      {notify}
     </View>
     )
   }
@@ -147,11 +146,5 @@ const styles = StyleSheet.create({
     flex: 7,
     width: Dimensions.get("window").width,
     height: Dimensions.get("window").height,
-  },
-  btn: {
-    margin: 10,
-    backgroundColor: '#9b59b6',
-    borderRadius: 3,
-    padding: 10,
   },
 });
