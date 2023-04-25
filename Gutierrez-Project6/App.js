@@ -5,12 +5,11 @@ import {
   View,
   Text
 } from 'react-native';
-import Album from './components/Album';
-import store from './redux';
+import Album from './components/Album'; 
 
 const App = () => (
   <SafeAreaView style={styles.container}>
-    <Album store={store}/>
+    <Album/>
   </SafeAreaView>
 );
 
