@@ -10,7 +10,7 @@ import store from './redux';
 
 const App = () => (
   <SafeAreaView style={styles.container}>
-    <Album />
+    <Album store={store}/>
   </SafeAreaView>
 );
 

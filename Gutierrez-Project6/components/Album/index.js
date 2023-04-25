@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     SafeAreaView,
     StyleSheet,
@@ -8,18 +8,24 @@ import {
     View
   } from 'react-native';
 
+const Album = ({store}) => {
+    const [text, setText] = useState();
 
-const Album = () => {
-    const [text, onChangeText] = useState();
+    useEffect(() => {
+        setText(store.currentStateStr);
+        return () => {
+          store.unsubscribe;
+        };
+      }, []);
 
     return (
         <SafeAreaView>
             <TextInput
                 style={styles.preview}
                 value={text}
-                onChangeText={onChangeText}
-                // placeholder="Results..."
-                editable={true}
+                onChangeText={setText}
+                editable={false}
+                multiline
             /> 
         </SafeAreaView>
     )
@@ -28,8 +34,8 @@ const Album = () => {
 const styles = StyleSheet.create({
   preview: {
     backgroundColor: '#bdc3c7',
-    width: 300,
-    // height: 400,
+    width: 400,
+    height: 600,
     padding: 10,
     borderRadius: 5,
     color: '#333',

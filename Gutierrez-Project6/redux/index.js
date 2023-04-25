@@ -16,6 +16,7 @@ export default store;
 store.currentStateStr = '';
 const unsubscribe = store.subscribe(() => {
     console.log(store.getState());
+    store.currentStateStr = JSON.stringify(store.getState(), null, '   ');
 });
 
 store.dispatch(fetchPhotos());
